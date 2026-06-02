@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Наши моменты | Годовщина</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #1a0505 0%, #3d0f0f 30%, #6b1a1a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Georgia', 'Segoe UI', 'Times New Roman', serif;
+            padding: 16px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "❤️";
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 45px;
+            opacity: 0.08;
+            pointer-events: none;
+            animation: floatHeart 8s ease-in-out infinite;
+        }
+        
+        body::after {
+            content: "💗";
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 40px;
+            opacity: 0.08;
+            pointer-events: none;
+            animation: floatHeart 6s ease-in-out infinite reverse;
+        }
+        
+        @keyframes floatHeart {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        
+        .bg-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .bg-hearts span {
+            position: absolute;
+            color: rgba(255, 200, 200, 0.1);
+            font-size: 25px;
+            user-select: none;
+            animation: floatBg 15s linear infinite;
+        }
+        
+        @keyframes floatBg {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.1; }
+            90% { opacity: 0.1; }
+            100% { transform: translateY(-50px) rotate(360deg); opacity: 0; }
+        }
+
+        .wrapper {
+            max-width: 900px;
+            width: 100%;
+            background: linear-gradient(145deg, rgba(35, 12, 12, 0.95) 0%, rgba(55, 20, 20, 0.95) 100%);
+            backdrop-filter: blur(5px);
+            border-radius: 40px;
+            padding: 30px 20px 40px;
+            text-align: center;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,255,0.1);
+            border: 1px solid rgba(200, 100, 100, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        button {
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 10px 24px;
+            margin: 6px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+            font-family: inherit;
+            background: linear-gradient(145deg, #b84747, #9a3535);
+            color: #fff5f5;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+        }
+        button:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.3);
+        }
+        button:hover {
+            background: linear-gradient(145deg, #cf5e5e, #b84747);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 0 rgba(0,0,0,0.3);
+        }
+
+        .envelope-area {
+            margin: 10px 0 25px;
+        }
+        .envelope-svg {
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.4));
+            max-width: 100%;
+        }
+        .envelope-svg svg {
+            width: 100%;
+            height: auto;
+            max-width: 280px;
+        }
+        
+        .btn-open, .btn-not {
+            font-size: 1rem;
+            padding: 10px 22px;
+        }
+        
+        .btn-open {
+            background: linear-gradient(145deg, #c04c4c, #9e3535);
+            border-bottom: 3px solid #6b1f1f;
+        }
+        .btn-not {
+            background: linear-gradient(145deg, #5a2a2a, #3d1a1a);
+            color: #f0c0c0;
+            border-bottom: 3px solid #2a1010;
+        }
+
+        .error-msg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(145deg, #1a0a0a, #2a1010);
+            color: #ffc5c5;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            z-index: 999;
+            border: 2px solid #e66;
+            white-space: nowrap;
+        }
+
+        .letter-box {
+            background: linear-gradient(145deg, #fffaf5, #fff0e8);
+            border-radius: 35px;
+            padding: 25px 20px;
+            margin: 20px 0;
+            text-align: left;
+            box-shadow: inset 0 0 0 2px #f0d0d0, 0 15px 25px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .letter-box::before {
+            content: "❤️ 💗 ❤️";
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 10px;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        
+        .letter-box h2 {
+            color: #a83030;
+            text-align: center;
+            font-size: 1.6rem;
+            border-bottom: 2px solid #d49484;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+        .letter-box p {
+            color: #2e1c1a;
+            line-height: 1.6;
+            margin: 14px 0;
+            text-indent: 20px;
+            font-size: 0.95rem;
+        }
+        .sign {
+            text-align: right;
+            margin-top: 20px;
+            padding-top: 12px;
+            border-top: 1px solid #d4a0a0;
+            font-style: italic;
+            color: #b54a4a;
+            font-size: 1rem;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .btn-back, .btn-continue {
+            font-size: 1rem;
+            padding: 10px 22px;
+        }
+        .btn-back {
+            background: linear-gradient(145deg, #784141, #5a2a2a);
+            border-bottom: 3px solid #3d1a1a;
+        }
+        .btn-continue {
+            background: linear-gradient(145deg, #aa4646, #8a3030);
+            border-bottom: 3px solid #5a2020;
+        }
+
+        .menu-container {
+            display: none;
+            margin-top: 15px;
+        }
+        .menu-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            background: linear-gradient(145deg, #ecc8c8, #d4a0a0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .menu-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        .story-btn {
+            font-size: 1rem;
+            padding: 10px 20px;
+            min-width: 120px;
+            border-bottom: 3px solid #5a2020;
+        }
+        
+        .story-page {
+            display: none;
+            background: linear-gradient(145deg, #fffaf5, #fff0e8);
+            border-radius: 35px;
+            padding: 25px 18px;
+            text-align: center;
+            box-shadow: inset 0 0 0 2px #f0d0d0, 0 15px 25px rgba(0,0,0,0.2);
+            position: relative;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .story-page::-webkit-scrollbar {
+            width: 6px;
+        }
+        .story-page::-webkit-scrollbar-track {
+            background: #e0c0c0;
+            border-radius: 10px;
+        }
+        .story-page::-webkit-scrollbar-thumb {
+            background: #b84747;
+            border-radius: 10px;
+        }
+        
+        .video-block {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(145deg, #3d1a1a, #2a1010);
+            border-radius: 35px;
+            border: 1px solid rgba(200, 100, 100, 0.4);
+        }
+        
+        .video-title {
+            font-size: 1.3rem;
+            color: #ffd5d5;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-video {
+            font-size: 1rem;
+            padding: 10px 28px;
+        }
+        
+        .final-block {
+            display: none;
+            background: linear-gradient(145deg, #fffaf5, #fff0e8);
+            border-radius: 35px;
+            padding: 25px 18px;
+            text-align: center;
+            box-shadow: inset 0 0 0 2px #f0d0d0, 0 15px 25px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+        
+        .final-image {
+            max-width: 100%;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            border: 2px solid #c08080;
+        }
+        
+        .final-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .video-modal-content {
+            position: relative;
+            max-width: 95%;
+            width: auto;
+            max-height: 85%;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid #c06060;
+        }
+        
+        .video-modal-content video {
+            width: 100%;
+            height: auto;
+            max-height: 60vh;
+            display: block;
+        }
+        
+        .close-video {
+            position: absolute;
+            top: -35px;
+            right: 0;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px 12px;
+        }
+        
+        .video-modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 12px;
+            background: linear-gradient(145deg, #2a1010, #1a0808);
+            border-top: 1px solid #c06060;
+            flex-wrap: wrap;
+        }
+        
+        .video-modal-buttons button {
+            font-size: 0.9rem;
+            padding: 6px 20px;
+            margin: 0;
+        }
+        
+        /* ОБЩИЕ СТИЛИ ДЛЯ БЛОКОВ С ФОТО */
+        .side-photo-block {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin: 25px 0;
+            flex-wrap: wrap;
+            background: linear-gradient(145deg, rgba(200, 120, 120, 0.08), rgba(180, 90, 90, 0.05));
+            border-radius: 30px;
+            padding: 15px;
+            border: 1px solid rgba(200, 100, 100, 0.2);
+        }
+        
+        .side-photo-block.reverse {
+            flex-direction: row-reverse;
+        }
+        
+        .side-text {
+            flex: 2;
+            text-align: left;
+        }
+        
+        .side-text p {
+            font-size: 0.9rem;
+            line-height: 1.55;
+            color: #3a2020;
+        }
+        
+        .side-photo {
+            flex: 1;
+            min-width: 140px;
+        }
+        .side-photo .photo-frame {
+            background: linear-gradient(145deg, #fff, #fef5f0);
+            border-radius: 20px;
+            padding: 8px;
+            border: 2px solid #d0a0a0;
+        }
+        .side-photo .photo-frame img {
+            width: 100%;
+            border-radius: 14px;
+            max-height: 180px;
+            object-fit: cover;
+        }
+        .side-photo .photo-caption {
+            margin-top: 8px;
+            font-size: 0.7rem;
+            color: #5a2020;
+            background: rgba(255, 250, 240, 0.8);
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        
+        .stacked-photos {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .stack-item {
+            position: relative;
+            width: 160px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .stack-item:first-child {
+            transform: rotate(-5deg);
+            margin-top: 10px;
+        }
+        .stack-item:nth-child(2) {
+            transform: rotate(2deg);
+            margin-top: 5px;
+        }
+        .stack-item:last-child {
+            transform: rotate(8deg);
+            margin-top: 0px;
+        }
+        .stack-item:hover {
+            transform: rotate(0deg) scale(1.03);
+            z-index: 10;
+        }
+        .stack-item .photo-frame {
+            background: linear-gradient(145deg, #fff, #fef5f0);
+            border-radius: 16px;
+            padding: 6px;
+            border: 2px solid #d0a0a0;
+        }
+        .stack-item .photo-frame img {
+            width: 100%;
+            border-radius: 12px;
+            max-height: 160px;
+            object-fit: cover;
+        }
+        .stack-item .photo-caption {
+            position: absolute;
+            bottom: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(45, 20, 20, 0.9);
+            color: #ffe0e0;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        
+        .stack-caption {
+            text-align: center;
+            margin-top: 35px;
+            font-size: 0.8rem;
+            color: #b84747;
+            background: rgba(255, 245, 235, 0.8);
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 30px;
+        }
+        
+        .photo-placeholder {
+            background: linear-gradient(145deg, #ecd9d9, #e0c0c0);
+            border-radius: 20px;
+            padding: 30px 15px;
+            text-align: center;
+            color: #b84747;
+            border: 2px dashed #c08080;
+            font-size: 0.8rem;
+        }
+        
+        .story-text {
+            color: #2e1c1a;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            text-align: left;
+        }
+        
+        .story-text p {
+            margin: 12px 0;
+            padding-left: 5px;
+            border-left: 3px solid rgba(200, 100, 100, 0.3);
+        }
+        
+        .heart-divider {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.3rem;
+            color: #c06060;
+        }
+        
+        .back-to-menu, .back-to-letter-menu {
+            font-size: 0.9rem;
+            padding: 8px 22px;
+            margin-top: 20px;
+        }
+        .back-to-letter-menu {
+            background: linear-gradient(145deg, #5a3a3a, #3d2020);
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 0.65rem;
+            background: linear-gradient(145deg, #c08080, #a06060);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        /* МОБИЛЬНАЯ ВЕРСИЯ */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .wrapper {
+                padding: 20px 15px 30px;
+                border-radius: 30px;
+            }
+            .letter-box {
+                padding: 20px 15px;
+            }
+            .letter-box h2 {
+                font-size: 1.3rem;
+            }
+            .letter-box p {
+                font-size: 0.85rem;
+                text-indent: 15px;
+            }
+            .side-photo-block {
+                flex-direction: column !important;
+                text-align: center;
+                padding: 12px;
+                gap: 12px;
+            }
+            .side-text {
+                text-align: center;
+            }
+            .side-text p {
+                font-size: 0.85rem;
+            }
+            .side-photo {
+                min-width: 100%;
+            }
+            .stacked-photos {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .stack-item {
+                width: 200px;
+                margin: 0 !important;
+                transform: none !important;
+            }
+            .stack-item .photo-caption {
+                white-space: normal;
+                text-align: center;
+                width: auto;
+                bottom: -30px;
+                font-size: 0.6rem;
+            }
+            .stack-caption {
+                margin-top: 45px;
+                font-size: 0.75rem;
+            }
+            .story-text {
+                font-size: 0.85rem;
+            }
+            .story-text p {
+                padding-left: 8px;
+            }
+            button {
+                font-size: 0.9rem;
+                padding: 8px 18px;
+            }
+            .story-btn {
+                font-size: 0.85rem;
+                padding: 8px 16px;
+                min-width: 100px;
+            }
+            .menu-title {
+                font-size: 1.3rem;
+            }
+            .video-title {
+                font-size: 1.1rem;
+            }
+            .final-buttons {
+                gap: 12px;
+            }
+            .video-modal-content video {
+                max-height: 50vh;
+            }
+            .video-modal-buttons button {
+                font-size: 0.8rem;
+                padding: 5px 15px;
+            }
+            .envelope-svg svg {
+                max-width: 220px;
+            }
+        }
+        
+        /* ОЧЕНЬ МАЛЕНЬКИЕ ТЕЛЕФОНЫ */
+        @media (max-width: 400px) {
+            .wrapper {
+                padding: 15px 12px 25px;
+            }
+            .story-btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+                min-width: 85px;
+            }
+            .story-text {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-hearts" id="bgHearts"></div>
+
+<div id="videoModal" class="video-modal">
+    <div class="video-modal-content">
+        <button class="close-video" id="closeVideoBtn">✕</button>
+        <video id="giftVideo" controls>
+            <source src="video/gift.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+        <div class="video-modal-buttons">
+            <button id="videoBackBtn">◀ НАЗАД</button>
+            <button id="videoContinueBtn">ПРОДОЛЖИТЬ ▶</button>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper">
+    <div id="envelopeBlock">
+        <div class="envelope-area">
+            <div class="envelope-svg" id="clickEnvelope">
+                <svg width="280" height="170" viewBox="0 0 280 170" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="envGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#b84747"/>
+                            <stop offset="100%" style="stop-color:#7a2a2a"/>
+                        </linearGradient>
+                        <linearGradient id="envGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#d45a5a"/>
+                            <stop offset="100%" style="stop-color:#9a3535"/>
+                        </linearGradient>
+                        <linearGradient id="envGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#9a3535"/>
+                            <stop offset="100%" style="stop-color:#5a1a1a"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="10" y="12" width="260" height="146" fill="url(#envGrad)" stroke="#4a1515" stroke-width="3" rx="14"/>
+                    <polygon points="10,12 140,85 270,12" fill="url(#envGrad2)" stroke="#4a1515" stroke-width="3"/>
+                    <polygon points="10,158 140,85 270,158" fill="url(#envGrad3)" stroke="#4a1515" stroke-width="3"/>
+                    <rect x="85" y="50" width="110" height="34" fill="#fff0f0" rx="17" stroke="#a04040" stroke-width="1.5"/>
+                    <text x="100" y="72" font-size="16" fill="#8a2626" font-weight="bold" font-family="Georgia">💌 ГОД 💌</text>
+                    <circle cx="140" cy="85" r="9" fill="#ffc0c0" stroke="#691c1c" stroke-width="2"/>
+                    <text x="136" y="90" font-size="11" fill="#a03030">❤️</text>
+                </svg>
+            </div>
+        </div>
+        <button class="btn-open" id="openBtn">😍 ОТКРЫТЬ</button>
+        <button class="btn-not" id="notOpenBtn">🚫 НЕ ОТКРЫВАТЬ</button>
+    </div>
+
+    <div id="letterBlock" style="display: none;">
+        <div class="letter-box">
+            <h2>❤️ Моему любимому ❤️</h2>
+            <p>Ровно год назад мы сказали друг другу «да». С того самого дня я просыпаюсь и засыпаю с мыслью, как же мне повезло.</p>
+            <p>Ты стал не просто парнем, а домом, в который я всегда хочу возвращаться. Спасибо за твою заботу, за твои объятия, от которых мир замирает.</p>
+            <p>Этот год пролетел очень быстро, но произошло много всего. Я хочу, чтобы ты знал: для меня нет никого важнее. </p>
+            <p>С нашей годовщиной, любимый. Впереди — целая жизнь, и я хочу прожить её с тобой.</p>
+            <div class="sign">Всегда твоя, <br> ❤️ любимая</div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-back" id="backBtn">◀ НАЗАД</button>
+            <button class="btn-continue" id="continueBtn">ПРОДОЛЖИТЬ ▶</button>
+        </div>
+    </div>
+
+    <div id="menuContainer" class="menu-container">
+        <div class="menu-title">📓 Наши истории</div>
+        <div class="menu-buttons" id="menuButtons"></div>
+        <button class="back-to-letter-menu" id="backToLetterFromMenu">◀ Вернуться к письму</button>
+    </div>
+
+    <div id="storyPage" class="story-page" style="display: none;">
+        <div id="storyContent"></div>
+        <button class="back-to-menu" id="backToMenuBtn">◀ Назад к историям</button>
+    </div>
+    
+    <div id="finalBlock" class="final-block" style="display: none;">
+        <img id="finalImage" class="final-image" src="images/surprise.jpg" alt="Сюрприз">
+        <div class="final-buttons">
+            <button id="finalBackBtn">◀ НАЗАД</button>
+            <button id="exitBtn">ВЫХОД ✕</button>
+        </div>
+    </div>
+    
+    <footer>✨ Наша любовь. Год первый ✨</footer>
+</div>
+
+<script>
+    function createBgHearts() {
+        const container = document.getElementById('bgHearts');
+        if (!container) return;
+        const hearts = ['❤️', '💗', '💕', '💖', '💘', '💝', '💓', '💞', '💟', '❣️', '♥️', '❤️‍🔥'];
+        for (let i = 0; i < 100; i++) {
+            const heart = document.createElement('span');
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = 8 + Math.random() * 18 + 's';
+            heart.style.animationDelay = Math.random() * 20 + 's';
+            heart.style.fontSize = 16 + Math.random() * 35 + 'px';
+            heart.style.opacity = 0.05 + Math.random() * 0.08;
+            container.appendChild(heart);
+        }
+    }
+    createBgHearts();
+
+    const videoModal = document.getElementById('videoModal');
+    const giftVideo = document.getElementById('giftVideo');
+    const closeVideoBtn = document.getElementById('closeVideoBtn');
+    const videoBackBtn = document.getElementById('videoBackBtn');
+    const videoContinueBtn = document.getElementById('videoContinueBtn');
+    const finalBlock = document.getElementById('finalBlock');
+    const finalBackBtn = document.getElementById('finalBackBtn');
+    const exitBtn = document.getElementById('exitBtn');
+
+    function openVideo() {
+        videoModal.style.display = 'flex';
+        giftVideo.play();
+    }
+
+    function closeVideo() {
+        videoModal.style.display = 'none';
+        giftVideo.pause();
+        giftVideo.currentTime = 0;
+    }
+    
+    function showFinal() {
+        document.getElementById('menuContainer').style.display = 'none';
+        document.getElementById('storyPage').style.display = 'none';
+        finalBlock.style.display = 'block';
+    }
+    
+    function exitSite() {
+        window.close();
+        alert('Спасибо за этот год! ❤️');
+    }
+    
+    function backToMenuFromFinal() {
+        finalBlock.style.display = 'none';
+        document.getElementById('menuContainer').style.display = 'block';
+    }
+
+    if (closeVideoBtn) closeVideoBtn.addEventListener('click', closeVideo);
+    if (videoBackBtn) {
+        videoBackBtn.addEventListener('click', () => {
+            closeVideo();
+            document.getElementById('menuContainer').style.display = 'block';
+            document.getElementById('storyPage').style.display = 'none';
+            finalBlock.style.display = 'none';
+        });
+    }
+    if (videoContinueBtn) {
+        videoContinueBtn.addEventListener('click', () => {
+            closeVideo();
+            showFinal();
+        });
+    }
+    if (finalBackBtn) finalBackBtn.addEventListener('click', backToMenuFromFinal);
+    if (exitBtn) exitBtn.addEventListener('click', exitSite);
+    
+    videoModal.addEventListener('click', function(e) {
+        if (e.target === videoModal) closeVideo();
+    });
+
+    const stories = [
+        {
+            id: "beginning",
+            buttonText: "💝 Наше начало",
+            content: `<div class="story-text">
+                <p>🌼 <strong>Однажды, 24 апреля 2025 года...</strong> я увидела твой запрос в «Блинке». Знаешь, я его сначала отклонила. Позже я сама кинула тебе запрос. А ты принял. И знаешь почему? Потому что я уже знала, кто ты.</p>
+                <p>💬 Мы просто общались. Я спросила: «Как твоя жизнь» — и думала: «Ну всё, пообщались и хватит». Но ты каждый вечер начинал присылать мне стикеры. Сначала я улыбалась, а потом уже ждала этих вечеров.</p>
+                <p>✨ Наше общение завязалось само собой — легко, тепло, будто мы всегда знали друг друга.</p>
+                <p>❤️ Спасибо, что не перестал писать. Спасибо, что был настойчивым и нежным. С того самого апреля моя жизнь разделилась на «до» и «после». И «после» — это лучшее, что со мной случалось.</p>
+                <p style="text-align: center; margin-top: 20px;">💫 <strong>С годовщиной, любимый</strong> 💫</p>
+            </div>
+            <div class="side-photo-block">
+                <div class="side-text">
+                    <p>💕 <strong>А вот и наши первые сообщения...</strong> С этого всё и началось.</p>
+                </div>
+                <div class="side-photo">
+                    <div class="photo-frame">
+                        <img src="images/beginning.jpg" alt="Наше начало">
+                    </div>
+                    <div class="photo-caption">📸 24 апреля 2025</div>
+                </div>
+            </div>`
+        },
+        {
+            id: "travel",
+            buttonText: "🌎 Путешествия",
+            content: `<div class="story-text">
+                    <p>🌍 <strong>Мы с тобой с самого начала проживали расстояние.</strong> Но мы справились. Даже когда было много ссор — мы становились только ближе.</p>
+                    <div class="heart-divider">❤️‍🩹</div>
+                    <p>🚂 <strong>Помнишь, как ты первый раз приехал ко мне в Барановичи?</strong> Надела то самое платье. Мы гуляли по парку, узнавали друг друга лучше.</p>
+                    <p>🌧️ <strong>А потом начался ливень.</strong> Мы сидели на лавочке, а деревья укрывали нас. А после случилась наша первая ночёвка.</p>
+                    <div class="heart-divider">💞</div>
+                    <p>🏰 <strong>Август. Мы поехали в Гродно.</strong> Тебе было плохо, но мы всё равно хорошо провели время. Шёл дождь, но мы гуляли по торговому центру, спустились под мост, а потом пошли в парк.</p>
+                </div>`,
+            grodnoPhotos: [
+                { src: "images/TS.jpg", caption: "🛍️ Торговый центр" },
+                { src: "images/pechka.jpg", caption: "🌉 Речка под мостом" }
+            ],
+            stackedPhotos: [
+                { src: "images/1.jpg", caption: "Наши первые фото" },
+                { src: "images/2.jpg", caption: "Тот самый парк" },
+                { src: "images/3.jpg", caption: "Ливень" }
+            ]
+        },
+        {
+            id: "holidays",
+            buttonText: "🎉 Праздники",
+            content: `<div class="story-text">
+                    <p>🎂 <strong>30 сентября — твой день рождения.</strong> Мы отмечали позже. Ты приехал, я подарила подарок, и мы отпраздновали вдвоём.</p>
+                    <div class="heart-divider">🎀</div>
+                    <p>🎁 <strong>4 декабря — мой день рождения.</strong> Я приехала с учёбы к тебе. Мне хотелось быть только с тобой.</p>
+                    <div class="heart-divider">✨</div>
+                    <p>🎄 <strong>Новый год.</strong> Мы были вместе до 6 утра. С кем встретишь, с тем и проведёшь...</p>
+                    <div class="heart-divider">💘</div>
+                    <p>💝 <strong>14 февраля.</strong> Ты приехал. Мы приготовили пиццу-сердечко, а ещё ты украсил всё лепестками роз.</p>
+                    <div class="heart-divider">❤️‍🔥</div>
+                    <p>🌟 <strong>А сегодня — наша годовщина, 3 июня.</strong> Я люблю тебя. Спасибо за этот год.</p>
+                </div>`,
+            feb14Photos: [
+                { src: "images/pizza.jpg", caption: "🍕 Пицца-сердечко" },
+                { src: "images/lepest.jpg", caption: "🌹 Лепестки роз" }
+            ],
+            fingerprintsPhoto: { src: "images/opechatki.jpg", caption: "🖐️ Отпечатки пальцев" }
+        },
+        {
+            id: "walks",
+            buttonText: "🌳 Прогулки",
+            content: `<div class="story-text">
+                    <p>🌿 <strong>Раньше мы сидели на улице с утра до вечера.</strong> Просто ты, я, лавочка и разговоры ни о чём.</p>
+                    <p>☀️ <strong>Когда было жарко, ходили на озеро.</strong></p>
+                    <p>🛋️ <strong>Смотрели Тик Ток на лавочках.</strong> Смеялись до слёз.</p>
+                    <p>🌧️ <strong>Даже когда шёл дождь — мы не сидели дома.</strong> Поехали в ТЦ «Берег». Там ты купил мне Пандочку.</p>
+                    <p>🌅 <strong>А потом увидели красивый закат.</strong> Небо было розовым.</p>
+                    <p>❄️ <strong>Зимой ходили по сугробам.</strong> Во время метели сделали красивое фото.</p>
+                    <p>🍣 <strong>Заказываем роллы.</strong> Иногда готовим сами — всегда с душой.</p>
+                </div>`,
+            walksPhotos: [
+                { src: "images/ozero.jpg", caption: "🏞️ Озеро", position: "after_lake" },
+                { src: "images/panda.jpg", caption: "🛍️ Пандочка", position: "after_panda" },
+                { src: "images/zakat.jpg", caption: "🌅 Закат", position: "after_sunset" },
+                { src: "images/zima.jpg", caption: "❄️ Зима", position: "after_winter" },
+                { src: "images/poll.jpg", caption: "🍣 Роллы", position: "after_rolls" }
+            ]
+        }
+    ];
+
+    const envelopeBlock = document.getElementById('envelopeBlock');
+    const letterBlock = document.getElementById('letterBlock');
+    const menuContainer = document.getElementById('menuContainer');
+    const storyPage = document.getElementById('storyPage');
+    const openBtn = document.getElementById('openBtn');
+    const notOpenBtn = document.getElementById('notOpenBtn');
+    const backBtn = document.getElementById('backBtn');
+    const continueBtn = document.getElementById('continueBtn');
+    const backToLetterFromMenu = document.getElementById('backToLetterFromMenu');
+    const backToMenuBtn = document.getElementById('backToMenuBtn');
+    const clickEnvelope = document.getElementById('clickEnvelope');
+
+    function showError() {
+        const err = document.createElement('div');
+        err.className = 'error-msg';
+        err.innerText = '❌ НАЖМИ «ОТКРЫТЬ», ЛЮБИМЫЙ! ❌';
+        document.body.appendChild(err);
+        setTimeout(() => err.remove(), 1300);
+    }
+    
+    notOpenBtn.addEventListener('click', showError);
+    openBtn.addEventListener('click', () => {
+        envelopeBlock.style.display = 'none';
+        letterBlock.style.display = 'block';
+    });
+    if (clickEnvelope) {
+        clickEnvelope.addEventListener('click', () => {
+            envelopeBlock.style.display = 'none';
+            letterBlock.style.display = 'block';
+        });
+    }
+    backBtn.addEventListener('click', () => {
+        letterBlock.style.display = 'none';
+        envelopeBlock.style.display = 'block';
+    });
+    continueBtn.addEventListener('click', () => {
+        letterBlock.style.display = 'none';
+        menuContainer.style.display = 'block';
+        renderMenuButtons();
+    });
+    if (backToLetterFromMenu) {
+        backToLetterFromMenu.addEventListener('click', () => {
+            menuContainer.style.display = 'none';
+            letterBlock.style.display = 'block';
+        });
+    }
+    if (backToMenuBtn) {
+        backToMenuBtn.addEventListener('click', () => {
+            storyPage.style.display = 'none';
+            menuContainer.style.display = 'block';
+        });
+    }
+    
+    function renderMenuButtons() {
+        const menuButtons = document.getElementById('menuButtons');
+        if (!menuButtons) return;
+        menuButtons.innerHTML = '';
+        stories.forEach(story => {
+            const btn = document.createElement('button');
+            btn.className = 'story-btn';
+            btn.innerText = story.buttonText;
+            btn.addEventListener('click', () => openStory(story));
+            menuButtons.appendChild(btn);
+        });
+        
+        const videoBlock = document.createElement('div');
+        videoBlock.className = 'video-block';
+        videoBlock.innerHTML = `
+            <div class="video-title">
+                <span>🎬</span> ПОСМОТРИ ПОСЛЕДНИМ <span>🎬</span>
+            </div>
+            <button class="btn-video" id="openVideoBtn">▶ ОТКРЫТЬ ВИДЕО</button>
+        `;
+        menuContainer.appendChild(videoBlock);
+        
+        const newOpenVideoBtn = document.getElementById('openVideoBtn');
+        if (newOpenVideoBtn) newOpenVideoBtn.addEventListener('click', openVideo);
+    }
+    
+    function renderPhoto(photo) {
+        if (!photo) return '';
+        if (photo.src && photo.src !== "") {
+            return `
+                <div class="photo-frame">
+                    <img src="${photo.src}" alt="${photo.caption}">
+                </div>
+                <div class="photo-caption">${photo.caption}</div>
+            `;
+        } else {
+            return `<div class="photo-placeholder">📸<br>${photo.caption || 'Добавьте фото'}</div>`;
+        }
+    }
+    
+    function openStory(story) {
+        const storyContent = document.getElementById('storyContent');
+        if (!storyContent) return;
+        
+        let html = story.content || '';
+        
+        if (story.grodnoPhotos) {
+            story.grodnoPhotos.forEach((photo, idx) => {
+                const direction = idx % 2 === 0 ? '' : 'reverse';
+                const photoHtml = renderPhoto(photo);
+                html += `
+                    <div class="side-photo-block ${direction}">
+                        <div class="side-text">
+                            <p>${photo.sideText || (idx === 0 ? '✨ Вот наши кадры из Гродно.' : '🌉 А это речка под мостом.')}</p>
+                        </div>
+                        <div class="side-photo">${photoHtml}</div>
+                    </div>
+                `;
+            });
+        }
+        
+        if (story.stackedPhotos && story.stackedPhotos.length > 0) {
+            let stackHtml = `<div class="stacked-photos">`;
+            story.stackedPhotos.forEach(photo => {
+                stackHtml += `<div class="stack-item">${renderPhoto(photo)}</div>`;
+            });
+            stackHtml += `</div><div class="stack-caption">📸 Три самых важных момента</div>`;
+            html += stackHtml;
+        }
+        
+        if (story.feb14Photos && story.feb14Photos.length > 0) {
+            let febHtml = `<div class="heart-divider">💝</div><div class="stacked-photos">`;
+            story.feb14Photos.forEach(photo => {
+                febHtml += `<div class="stack-item">${renderPhoto(photo)}</div>`;
+            });
+            febHtml += `</div><div class="stack-caption">14 февраля</div>`;
+            html += febHtml;
+        }
+        
+        if (story.fingerprintsPhoto) {
+            html += `
+                <div class="heart-divider">🖐️</div>
+                <div class="side-photo-block">
+                    <div class="side-text"><p>Наши отпечатки пальцев — маленький ритуал.</p></div>
+                    <div class="side-photo">${renderPhoto(story.fingerprintsPhoto)}</div>
+                </div>
+            `;
+        }
+        
+        if (story.walksPhotos) {
+            let newHtml = html;
+            
+            const lakePhoto = story.walksPhotos.find(p => p.position === 'after_lake');
+            if (lakePhoto) {
+                newHtml = newHtml.replace('<p>☀️ <strong>Когда было жарко, ходили на озеро.</strong></p>',
+                    `<div class="side-photo-block"><div class="side-text"><p>☀️ <strong>Когда было жарко, ходили на озеро.</strong></p></div><div class="side-photo">${renderPhoto(lakePhoto)}</div></div>`);
+            }
+            
+            const pandaPhoto = story.walksPhotos.find(p => p.position === 'after_panda');
+            if (pandaPhoto) {
+                newHtml = newHtml.replace('<p>🌧️ <strong>Даже когда шёл дождь — мы не сидели дома.</strong> Поехали в ТЦ «Берег». Там ты купил мне Пандочку.</p>',
+                    `<div class="side-photo-block reverse"><div class="side-text"><p>🌧️ <strong>Даже когда шёл дождь — мы не сидели дома.</strong> Поехали в ТЦ «Берег». Там ты купил мне Пандочку.</p></div><div class="side-photo">${renderPhoto(pandaPhoto)}</div></div>`);
+            }
+            
+            const sunsetPhoto = story.walksPhotos.find(p => p.position === 'after_sunset');
+            if (sunsetPhoto) {
+                newHtml = newHtml.replace('<p>🌅 <strong>А потом увидели красивый закат.</strong> Небо было розовым.</p>',
+                    `<div class="side-photo-block"><div class="side-text"><p>🌅 <strong>А потом увидели красивый закат.</strong> Небо было розовым.</p></div><div class="side-photo">${renderPhoto(sunsetPhoto)}</div></div>`);
+            }
+            
+            const winterPhoto = story.walksPhotos.find(p => p.position === 'after_winter');
+            if (winterPhoto) {
+                newHtml = newHtml.replace('<p>❄️ <strong>Зимой ходили по сугробам.</strong> Во время метели сделали красивое фото.</p>',
+                    `<div class="side-photo-block reverse"><div class="side-text"><p>❄️ <strong>Зимой ходили по сугробам.</strong> Во время метели сделали красивое фото.</p></div><div class="side-photo">${renderPhoto(winterPhoto)}</div></div>`);
+            }
+            
+            const rollsPhoto = story.walksPhotos.find(p => p.position === 'after_rolls');
+            if (rollsPhoto) {
+                newHtml = newHtml.replace('<p>🍣 <strong>Заказываем роллы.</strong> Иногда готовим сами — всегда с душой.</p>',
+                    `<div class="side-photo-block"><div class="side-text"><p>🍣 <strong>Заказываем роллы.</strong> Иногда готовим сами — всегда с душой.</p></div><div class="side-photo">${renderPhoto(rollsPhoto)}</div></div>`);
+            }
+            html = newHtml;
+        }
+        
+        storyContent.innerHTML = html;
+        menuContainer.style.display = 'none';
+        storyPage.style.display = 'block';
+    }
+</script>
+</body>
+</html>
